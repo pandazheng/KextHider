@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8A508175174CE3A6003C4BAC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8A508173174CE3A6003C4BAC /* InfoPlist.strings */; };
 		8A508177174CE3A6003C4BAC /* KextHider.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A508176174CE3A6003C4BAC /* KextHider.c */; };
+		8A50817F174CE424003C4BAC /* KextHider.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A50817E174CE424003C4BAC /* KextHider.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,6 +19,7 @@
 		8A508174174CE3A6003C4BAC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8A508176174CE3A6003C4BAC /* KextHider.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = KextHider.c; sourceTree = "<group>"; };
 		8A508178174CE3A6003C4BAC /* KextHider-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KextHider-Prefix.pch"; sourceTree = "<group>"; };
+		8A50817E174CE424003C4BAC /* KextHider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KextHider.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				8A508176174CE3A6003C4BAC /* KextHider.c */,
+				8A50817E174CE424003C4BAC /* KextHider.h */,
 				8A508171174CE3A6003C4BAC /* Supporting Files */,
 			);
 			path = KextHider;
@@ -90,6 +93,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A50817F174CE424003C4BAC /* KextHider.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
