@@ -1,5 +1,6 @@
 //
 //  KextHider.h
+//   by @_rc0r
 //
 #ifndef KextHider_KextHider_h
 #define KextHider_KextHider_h
@@ -22,7 +23,9 @@
 #endif
 
 #define DEFAULT_KERNEL_SA 0xffffff8000200000
+
 #define SKEXTLOADED_ADDR 0xFFFFFF80008AD0C8
+#define KMOD_ADDR 0xFFFFFF80008E0B48
 
 const char *kextToHide = "rc0r.KextHider";
 

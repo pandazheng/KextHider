@@ -1,11 +1,11 @@
 ###README###
 
-Sample kernel extension that demonstrates how to hide from kextstat by modifying
-OSArray containing OSKext objects for the running kexts.
+Sample kernel extension that demonstrates how to hide from kextstat and friends
+by modifying the corresponding OSArray containing OSKext objects and the *\_kmod*
+list.
 
 Bugz/ToDo:
 
-* additionally alter kmod list
 * find sLoadedKexts dynamically
 * better solution for hardcoded offsets?!
 

