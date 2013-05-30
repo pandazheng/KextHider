@@ -2,9 +2,10 @@
 
 Sample kernel extension that demonstrates how to hide from kextstat and friends
 by modifying the corresponding OSArray containing OSKext objects and the
-*\_kmod* list. Both *\_kmod* and *_sLoadedKexts* are located during runtime:
-*\_kmod* and *lookupKextWithLoadTag* is resolved and used to obtain the address
-of *_sLoadedKexts*.
+*\_kmod* list. Both *\_kmod* and *_sLoadedKexts* are located during runtime.
+*\_kmod* and *lookupKextWithLoadTag* are resolved on startup. The address of
+*_sLoadedKexts* is extracted from *lookupKextWithLoadTag* as shown in the gdb
+listing below:
 
 	gdb$ x/32i $loadKextWithTag
 	0xffffff80111f5ef0:  55                            push   rbp
